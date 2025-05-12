@@ -30,7 +30,7 @@ namespace DeberFiguras
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
-            objPoli.readData(txtSizes, txtLenght);
+            objPoli.ReadData(txtSizes, txtLenght);
             objPoli.calculateApotema();
             objPoli.calculatePerimeter();
             objPoli.calculateArea();
