@@ -24,17 +24,31 @@ namespace DeberFiguras
             pApotema = 0.0f;
         }
 
-        public void readData(TextBox txtSizes, TextBox txtLength)
+        public bool ReadData(TextBox txtSizes, TextBox txtLength)
         {
-            try
+            
+            if (string.IsNullOrWhiteSpace(txtSizes.Text) || string.IsNullOrWhiteSpace(txtLength.Text))
             {
-                pSizes = float.Parse(txtSizes.Text);
-                pLength = float.Parse(txtLength.Text);
+                MessageBox.Show("Ambos campos son obligatorios", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
             }
-            catch
+
+            if (!float.TryParse(txtSizes.Text, out pSizes) ||
+                !float.TryParse(txtLength.Text, out pLength) ||
+                pSizes <= 0 || pLength <= 0)
             {
-                MessageBox.Show("Ingreso no válido...", "Mensaje de Error");
+                MessageBox.Show("Ingrese números positivos mayores que cero", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                
+                if (pSizes <= 0) txtSizes.SelectAll();
+                if (pLength <= 0) txtLength.SelectAll();
+
+                return false;
             }
+
+            return true; 
         }
 
         public void calculateApotema()
